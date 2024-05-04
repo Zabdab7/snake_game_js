@@ -8,13 +8,12 @@
 </head>
 
 <body>
-  <canvas id="canvas" width="256" height="256" style="background-color: black;"></canvas>
+  <canvas id="canvas" width="256" height="256" style="background-color: black; transform:scale(2)"></canvas>
   <script>
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
 
     let snake = [[8, 8]], apple = [4, 4], [dx, dy] = [0, 0];
-    let score = 0;
 
     onkeydown = ({key}) => [dx, dy] = {[key]: [dx, dy], ArrowRight: [dx || 1, 0], ArrowLeft: [dx || -1, 0], ArrowUp: [0, dy || -1], ArrowDown: [0, dy || 1]}[key];
 
@@ -23,7 +22,6 @@
       if ("" + snake[0] == apple) {
         with (Math) do apple = [floor(random() * 16), floor(random() * 16)];
         while (snake.some(seg => "" + seg == apple));
-        score++;
       } else if (snake.slice(1).some(seg => "" + seg == snake[9])) {
         snake.splice(1);
       } else {
@@ -34,10 +32,8 @@
         ctx.fillStyle = "lime";
         snake.forEach(([x, y]) => ctx.fillRect(x * 16, y * 16, 16, 16));
       }
-      document.getElementById("score").innerHTML = "Score: " + score;
     }, 125);
   </script>
-  <h1 id="score">Score: 0</h1>
 </body>
 
 </html>
